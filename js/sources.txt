@@ -1,0 +1,3 @@
+perspective-transform.min.js: https://github.com/jlouthan/perspective-transform, MIT, by Jenny Louthan
+sudoku-solve.js: http://hewgill.com/sudoku/ (extracted and wrapped code), MIT, by Greg Hewgill
+l10n.js: https://github.com/fabi1cazenave/webL10n, BSD/MIT/WTFPL, by Fabien Cazenave

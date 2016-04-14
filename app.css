@@ -1,0 +1,75 @@
+body {
+	margin: 8px;
+	padding-right: 8px;
+}
+
+section {
+	max-width: 50em;
+	margin: auto;
+}
+
+button {
+	display: block;
+	width: 100%;
+	margin: 5px;
+	font-size: inherit;
+	line-height: 2;
+	margin-top: 1em;
+}
+
+section table,
+section video,
+section img,
+section div,
+section canvas {
+	margin: auto;
+}
+
+section video,
+section img,
+section canvas {
+	display: block;
+	max-width: 100%;
+}
+
+th {
+	text-align: center;
+}
+
+td {
+	text-align: right;
+}
+
+#page-loading img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 512px;
+	height: 512px;
+	margin-left: -256px;
+	margin-top: -256px;
+}
+
+@media (max-width: 512px) {
+	#page-loading img {
+		width: 256px;
+		height: 256px;
+		margin-left: -128px;
+		margin-top: -128px;
+	}
+}
+
+@media (max-width: 256px) {
+	#page-loading img {
+		display: none;
+	}
+}
+
+#debug-table td:nth-child(9) {
+	background-color: #4c4;
+}
+
+#debug-table input {
+	width: 1em;
+	font-size: inherit;
+}

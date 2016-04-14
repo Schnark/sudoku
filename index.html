@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html><head><title data-l10n-id="title">(title)</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<link rel="stylesheet" href="sudoku.css">
+<link rel="stylesheet" href="app.css">
+<link rel="resource" type="application/l10n" href="l10n/locales.ini">
+<script src="js/l10n.js"></script>
+<script src="js/perspective-transform.min.js"></script>
+<script src="js/sudoku.js"></script>
+<script src="js/sudoku-solve.js"></script>
+<script src="js/sudoku-ocr.js"></script>
+<script src="js/sudoku-app.js"></script>
+</head><body>
+
+<section id="page-loading">
+<img src="icons/icon-512.png">
+</section>
+
+<section id="page-start" hidden>
+<div id="solution"><h1 data-l10n-id="page-start">(page-start)</h1></div>
+<button id="button-edit" data-l10n-id="button-edit">(button-edit)</button>
+<button id="button-retry" data-l10n-id="button-retry">(button-retry)</button>
+<button id="button-camera" data-l10n-id="button-camera">(button-camera)</button>
+<button id="button-photo" data-l10n-id="button-photo">(button-photo)</button>
+<button id="button-training" data-l10n-id="button-training">(button-training)</button>
+<p data-l10n-id="thanks">(thanks)</p>
+<p data-l10n-id="thanks-list">(thanks-list)</p>
+<p data-l10n-id="free-software">(free-software)</p>
+</section>
+
+<section id="page-training" hidden>
+<h1 data-l10n-id="page-training">(page-training)</h1>
+<div id="training-result"></div>
+<button id="button-training-clear" data-l10n-id="button-training-clear">(button-training-clear)</button>
+<button id="button-training-done" data-l10n-id="button-training-done">(button-training-done)</button>
+</section>
+
+<section id="page-error" hidden>
+<h1 data-l10n-id="page-error">(page-error)</h1>
+<p data-l10n-id="error">(error)</p>
+<button id="button-error-done" data-l10n-id="button-error-done">(button-error-done)</button>
+</section>
+
+<section id="page-camera" hidden>
+<h1 data-l10n-id="page-camera">(page-camera)</h1>
+<video class="camera-img"></video>
+<img class="camera-img">
+<p id="explain-camera" data-l10n-id="explain-camera">(explain-camera)</p>
+<p id="explain-photo" data-l10n-id="explain-photo">(explain-photo)</p>
+<button id="button-ocr" data-l10n-id="button-ocr">(button-ocr)</button>
+<button id="button-debug" data-l10n-id="button-debug">(button-debug)</button>
+</section>
+
+<section id="page-debug" hidden>
+<h1 data-l10n-id="page-debug">(page-debug)</h1>
+<p data-l10n-id="debug-img">(debug-img)</p>
+<canvas id="canvas-img"></canvas>
+<p data-l10n-id="debug-bw">(debug-bw)</p>
+<canvas id="canvas-bw"></canvas>
+<p data-l10n-id="debug-grid">(debug-grid)</p>
+<canvas id="canvas-grid"></canvas>
+<p data-l10n-id="debug-sudoku">(debug-sudoku)</p>
+<canvas id="canvas-sudoku"></canvas>
+<p data-l10n-id="debug-table">(debug-table)</p>
+<table>
+<tr>
+<th data-l10n-id="debug-table-img">(debug-table-img)</th>
+<th>m<sub>20</sub></th><th>m<sub>11</sub></th><th>m<sub>02</sub></th>
+<th>m<sub>30</sub></th><th>m<sub>21</sub></th><th>m<sub>12</sub></th><th>m<sub>03</sub></th>
+<th>#</th><th>∆</th>
+<th id="train-header">T</th>
+</tr>
+<tbody id="debug-table"></tbody>
+</table>
+<p data-l10n-id="debug-result">(debug-result)</p>
+<div id="debug-result"></div>
+<button id="button-debug-done" data-l10n-id="button-debug-done">(button-debug-done)</button>
+</section>
+
+<section id="page-edit" hidden>
+<h1 data-l10n-id="page-edit">(page-edit)</h1>
+<p id="explain-edit-camera" data-l10n-id="edit-camera">(edit-camera)</p>
+<p id="explain-edit-start" data-l10n-id="edit-start">(edit-start)</p>
+<div id="edit-container"></div>
+<button id="button-solve" data-l10n-id="button-solve">(button-solve)</button>
+</section>
+
+<script src="js/app.js"></script>
+</body></html>

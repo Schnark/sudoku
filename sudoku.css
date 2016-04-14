@@ -1,0 +1,34 @@
+.sudoku {
+	border-collapse: collapse;
+	border-spacing: 0px;
+	empty-cells: show;
+	border: solid thick black;
+}
+
+.sudoku td {
+	border: solid thin black;
+	width: 1.5em;
+	height: 1.5em;
+	text-align: center;
+}
+
+.sudoku td input {
+	border: none;
+	width: 1.5em;
+	height: 1.5em;
+	text-align: center;
+	font-size: inherit;
+}
+
+.sudoku td.t {
+	border-top-width: thick;
+}
+.sudoku td.l {
+	border-left-width: thick;
+}
+.sudoku td.r {
+	border-right-width: thick;
+}
+.sudoku td.b {
+	border-bottom-width: thick;
+}
