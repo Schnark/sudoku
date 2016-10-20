@@ -1,3 +1,4 @@
-See https://marketplace.firefox.com/app/sudoku-l%C3%B6ser/ for a description
+Sudoku Firefox OS app, see https://schnark.github.io/sudoku/install for more information.
 
 Note that this repository is managed as described in https://xkcd.com/1597/.
+

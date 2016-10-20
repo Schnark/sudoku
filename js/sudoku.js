@@ -7,6 +7,14 @@ function Sudoku () {
 	this.empty();
 }
 
+Sudoku.validateNumber = function (n) {
+	n = Number(n);
+	if (isNaN(n) || n < 1 || n > 9 || Math.floor(n) !== n) {
+		n = '';
+	}
+	return n;
+};
+
 Sudoku.prototype.empty = function () {
 	var row, i, j;
 	this.grid = [];
@@ -29,7 +37,7 @@ Sudoku.prototype.fromForm = function (prefix) {
 	for (i = 1; i <= 9; i++) {
 		row = [];
 		for (j = 1; j <= 9; j++) {
-			row.push(document.getElementById(prefix + i + j).value);
+			row.push(Sudoku.validateNumber(document.getElementById(prefix + i + j).value));
 		}
 		this.grid.push(row);
 	}
@@ -58,7 +66,7 @@ Sudoku.prototype.toHtml = function (prefix) {
 
 	function getInner (i, j, val) {
 		return prefix ?
-			'<input value="' + val + '" id="' + prefix + i + j + '" maxlength="1" type="number">' :
+			'<input value="' + val + '" id="' + prefix + i + j + '" min="1" max="9" step="1" type="number">' :
 			val;
 	}
 

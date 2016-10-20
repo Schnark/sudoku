@@ -3,13 +3,16 @@ SudokuApp =
 (function () {
 "use strict";
 
-function SudokuApp (train) {
+function SudokuApp (debug) {
 	this.sudoku = new Sudoku();
 	this.addListener('button-edit', this.onEdit);
 	this.addListener('button-retry', this.onRetry);
 	this.addListener('button-camera', this.onCamera);
 	this.addListener('button-photo', this.onPhoto);
+	this.addListener('button-test-image', this.onTestImage);
 	this.addListener('button-training', this.onTraining);
+	this.addListener('button-debug-on', this.onDebugOn);
+	this.addListener('button-debug-off', this.onDebugOff);
 	this.addListener('button-training-clear', this.onTrainingClear);
 	this.addListener('button-training-done', this.onTrainingDone);
 	this.addListener('button-error-done', this.onErrorDone);
@@ -17,12 +20,18 @@ function SudokuApp (train) {
 	this.addListener('button-debug', this.onDebug);
 	this.addListener('button-debug-done', this.onDebugDone);
 	this.addListener('button-solve', this.onSolve);
-	if (!train) {
+	if (!debug) {
+		document.getElementById('train-explain').style.display = 'none';
 		document.getElementById('train-header').style.display = 'none';
+		document.getElementById('train-add').style.display = 'none';
+		document.getElementById('button-test-image').style.display = 'none';
 		document.getElementById('button-training').style.display = 'none';
+		document.getElementById('button-debug-off').style.display = 'none';
 	} else {
+		document.getElementById('button-debug-on').style.display = 'none';
 		this.getTrainingData();
 	}
+	document.getElementById('button-retry').style.display = 'none';
 	document.getElementsByTagName('body')[0].addEventListener('focus', function (e) {
 		try {
 			e.target.select();
@@ -208,39 +217,41 @@ SudokuApp.prototype.showPageStart = function (first) {
 		}
 		document.getElementById('solution').innerHTML = html;
 		document.getElementById('button-retry').style.display = '';
-	} else {
-		document.getElementById('button-retry').style.display = 'none';
 	}
 	this.showPage('page-start');
 };
 
 SudokuApp.prototype.showPageTraining = function () {
 	var result = Sudoku.getTrainingResults(this.trainigData), html = [], i, j;
-	html.push('<table>');
-	for (i = 0; i < 7; i++) {
-		html.push('<tr>');
-		for (j = 0; j < 7; j++) {
-			html.push('<td>');
-			html.push(result.cov[7 * i + j]);
-			html.push('</td>');
+	if (result) {
+		html.push('<table>');
+		for (i = 0; i < 7; i++) {
+			html.push('<tr>');
+			for (j = 0; j < 7; j++) {
+				html.push('<td>');
+				html.push(result.cov[7 * i + j]);
+				html.push('</td>');
+			}
+			html.push('</tr>');
 		}
-		html.push('</tr>');
-	}
-	html.push('</table>');
-	html.push('<table>');
-	for (i = 0; i < 9; i++) {
-		html.push('<tr>');
-		html.push('<th>');
-		html.push(i + 1);
-		html.push('</th>');
-		for (j = 0; j < 7; j++) {
-			html.push('<td>');
-			html.push(result.f[i][j]);
-			html.push('</td>');
+		html.push('</table>');
+		html.push('<table>');
+		for (i = 0; i < 9; i++) {
+			html.push('<tr>');
+			html.push('<th>');
+			html.push(i + 1);
+			html.push('</th>');
+			for (j = 0; j < 7; j++) {
+				html.push('<td>');
+				html.push(result.f[i][j]);
+				html.push('</td>');
+			}
+			html.push('</tr>');
 		}
-		html.push('</tr>');
+		html.push('</table>');
+	} else {
+		html.push(_('no-training-data'));
 	}
-	html.push('</table>');
 	document.getElementById('training-result').innerHTML = html.join('');
 	this.showPage('page-training');
 };
@@ -323,8 +334,20 @@ SudokuApp.prototype.onPhoto = function () {
 	});
 };
 
+SudokuApp.prototype.onTestImage = function () {
+	this.showPageCamera('sudoku.png');
+};
+
 SudokuApp.prototype.onTraining = function () {
 	this.showPageTraining();
+};
+
+SudokuApp.prototype.onDebugOn = function () {
+	location.href = 'index.html?debug=true';
+};
+
+SudokuApp.prototype.onDebugOff = function () {
+	location.href = 'index.html?debug=false';
 };
 
 SudokuApp.prototype.onTrainingClear = function () {
@@ -334,7 +357,7 @@ SudokuApp.prototype.onTrainingClear = function () {
 };
 
 SudokuApp.prototype.onTrainingDone = function () {
-	this.onEdit();
+	this.showPageStart(true);
 };
 
 SudokuApp.prototype.onErrorDone = function () {
@@ -352,12 +375,12 @@ SudokuApp.prototype.onDebug = function () {
 
 SudokuApp.prototype.onDebugDone = function () {
 	var inputs, i, n, v;
-	if (this.trainigData) {
+	if (this.trainigData && document.getElementById('check-train-add').checked) {
 		inputs = document.getElementById('debug-table').getElementsByTagName('input');
 		for (i = 0; i < inputs.length; i++) {
 			v = JSON.parse(inputs[i].dataset.moments);
-			n = Number(inputs[i].value);
-			if (n && !isNaN(n)) {
+			n = Sudoku.validateNumber(inputs[i].value);
+			if (n) {
 				Sudoku.addToTrainingData(this.trainigData, v, n);
 			}
 		}

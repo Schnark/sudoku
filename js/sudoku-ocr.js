@@ -568,6 +568,9 @@ function from7x7 (mat2) {
 
 function getTrainingResults (trainingData) {
 	var i, j, m = [], s = [], f = [];
+	if (trainingData.n === 0) {
+		return false;
+	}
 	for (i = 0; i < 7; i++) {
 		m[i] = trainingData.m[i] / trainingData.n;
 	}
@@ -737,7 +740,9 @@ function makeRow (data, m20, m11, m02, m30, m21, m12, m03, result, d, train) {
 		var input = document.createElement('input');
 		input.type = 'number';
 		input.value = val;
-		input.maxLength = 1;
+		input.min = 1;
+		input.max = 9;
+		input.step = 1;
 		input.dataset.moments = v;
 		return input;
 	}
