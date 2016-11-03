@@ -67,9 +67,26 @@ SudokuApp.prototype.clearTrainingData = function () {
 	}
 };
 
+//NOTE: constraints isn't converted for different versions,
+//so only use what's common for all implementations
+//(the defaults are better than the mess required to make it work for all versions)
+//use old syntax to avoid requiring promises
+SudokuApp.prototype.getUserMedia = function (constraints, success, error) {
+	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+		navigator.mediaDevices.getUserMedia(constraints).then(success, error);
+	} else if (navigator.getUserMedia) {
+		navigator.getUserMedia(constraints, success, error);
+	} else if (navigator.mozGetUserMedia) {
+		navigator.mozGetUserMedia(constraints, success, error);
+	} else if (navigator.webkitGetUserMedia) {
+		navigator.webkitGetUserMedia(constraints, success, error);
+	} else {
+		error();
+	}
+};
+
 SudokuApp.prototype.initCamera = function () {
-	var video, getUserMedia, that = this;
-//the defaults are better than the mess required to make it work for all versions
+	var video;
 /* ideal = {
 	width: 266,
 	height: 200,
@@ -77,13 +94,7 @@ SudokuApp.prototype.initCamera = function () {
 }*/
 	if (!this.initCamera.video) {
 		video = document.getElementById('camera-img');
-		getUserMedia = navigator.getUserMedia ||
-			navigator.mozGetUserMedia ||
-			navigator.webkitGetUserMedia ||
-			function (_, success, error) {
-				error();
-			};
-		getUserMedia.call(navigator, {video: true}, function (stream) {
+		this.getUserMedia({video: true}, function (stream) {
 			if ('srcObject' in video) {
 				video.srcObject = stream;
 			} else if ('mozSrcObject' in video) {
@@ -93,9 +104,9 @@ SudokuApp.prototype.initCamera = function () {
 			} else {
 				video.src = stream;
 			}
-			that.initCamera.video = video;
+			this.initCamera.video = video;
 			video.play();
-		}, this.showPageError.bind(this));
+		}.bind(this), this.showPageError.bind(this));
 		return;
 	}
 	this.initCamera.video.play();
@@ -324,14 +335,13 @@ SudokuApp.prototype.onCamera = function () {
 };
 
 SudokuApp.prototype.onPhoto = function () {
-	var that = this;
 	this.pickPhoto(function (src) {
 		if (src) {
-			that.showPageCamera(src);
+			this.showPageCamera(src);
 		} else {
-			that.onEdit();
+			this.onEdit();
 		}
-	});
+	}.bind(this));
 };
 
 SudokuApp.prototype.onTestImage = function () {
