@@ -1,4 +1,4 @@
-/*global SudokuApp: true, Sudoku, _, URL, MozActivity*/
+/*global SudokuApp: true, Sudoku, _, URL, performance, MozActivity*/
 SudokuApp =
 (function () {
 "use strict";
@@ -64,6 +64,38 @@ SudokuApp.prototype.clearTrainingData = function () {
 	try {
 		localStorage.removeItem('training');
 	} catch (e) {
+	}
+};
+
+SudokuApp.prototype.getTimer = function () {
+	var data = {}, now = Date.now;
+	if (window.performance && performance.now) {
+		now = performance.now.bind(performance);
+	}
+
+	function startStop (id) {
+		if (id in data) {
+			data[id] = now() - data[id];
+		} else {
+			data[id] = now();
+		}
+	}
+
+	function get (id) {
+		return data[id];
+	}
+
+	return {
+		startStop: startStop,
+		get: get
+	};
+};
+
+SudokuApp.prototype.showTimerData = function (ids, get) {
+	var i, id;
+	for (i = 0; i < ids.length; i++) {
+		id = ids[i];
+		document.getElementById('timer-' + id).innerHTML = Math.round(get(id));
 	}
 };
 
@@ -294,17 +326,19 @@ SudokuApp.prototype.showPageCamera = function (src) {
 };
 
 SudokuApp.prototype.showPageDebug = function () {
-	var canvas = this.getImage(true), table = document.getElementById('debug-table');
+	var canvas = this.getImage(true), table = document.getElementById('debug-table'), timer = this.getTimer();
 	table.innerHTML = '';
-	this.showPage('page-debug');
 	this.sudoku.fromImage(canvas,
 		document.getElementById('canvas-bw'),
 		document.getElementById('canvas-grid'),
 		document.getElementById('canvas-sudoku'),
 		table,
-		!!this.trainigData
+		!!this.trainigData,
+		timer.startStop
 	);
+	this.showTimerData(['all', 'read-data', 'gray', 'mono', 'component', 'interior', 'hough', 'ocr', 'fix'], timer.get);
 	document.getElementById('debug-result').innerHTML = this.sudoku.toHtml();
+	this.showPage('page-debug');
 };
 
 SudokuApp.prototype.showPageEdit = function (fromCamera) {

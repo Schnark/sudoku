@@ -13,6 +13,11 @@
 <link rel="stylesheet" href="sudoku.css">
 <link rel="stylesheet" href="app.css">
 <link rel="resource" type="application/l10n" href="l10n/locales.ini">
+<script>
+if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installPackage)) {
+	navigator.serviceWorker.register('sw.js');
+}
+</script>
 <script src="js/l10n.js"></script>
 <script src="js/perspective-transform.min.js"></script>
 <script src="js/sudoku.js"></script>
@@ -77,14 +82,32 @@
 <p data-l10n-id="debug-table">(debug-table)</p>
 <p id="train-explain" data-l10n-id="debug-train">(debug-train)</p>
 <table>
-<tr>
+<thead><tr>
 <th data-l10n-id="debug-table-img">(debug-table-img)</th>
 <th>m<sub>20</sub></th><th>m<sub>11</sub></th><th>m<sub>02</sub></th>
 <th>m<sub>30</sub></th><th>m<sub>21</sub></th><th>m<sub>12</sub></th><th>m<sub>03</sub></th>
 <th>#</th><th>∆</th>
 <th id="train-header">T</th>
-</tr>
+</tr></thead>
 <tbody id="debug-table"></tbody>
+</table>
+<table>
+<caption data-l10n-id="duration-table">(duration-table)</caption>
+<thead><tr>
+<th data-l10n-id="duration-table-event">(duration-table-event)</th>
+<th data-l10n-id="duration-table-duration">(duration-table-duration)</th>
+</tr></thead>
+<tbody>
+<tr><th data-l10n-id="duration-table-read-data">(duration-table-read-data)</th><td id="timer-read-data"></td></tr>
+<tr><th data-l10n-id="duration-table-gray">(duration-table-gray)</th><td id="timer-gray"></td></tr>
+<tr><th data-l10n-id="duration-table-mono">(duration-table-mono)</th><td id="timer-mono"></td></tr>
+<tr><th data-l10n-id="duration-table-component">(duration-table-component)</th><td id="timer-component"></td></tr>
+<tr><th data-l10n-id="duration-table-interior">(duration-table-interior)</th><td id="timer-interior"></td></tr>
+<tr><th data-l10n-id="duration-table-hough">(duration-table-hough)</th><td id="timer-hough"></td></tr>
+<tr><th data-l10n-id="duration-table-ocr">(duration-table-ocr)</th><td id="timer-ocr"></td></tr>
+<tr><th data-l10n-id="duration-table-fix">(duration-table-fix)</th><td id="timer-fix"></td></tr>
+<tr><th data-l10n-id="duration-table-all">(duration-table-all)</th><td id="timer-all"></td></tr>
+</tbody>
 </table>
 <p data-l10n-id="debug-result">(debug-result)</p>
 <div id="debug-result"></div>

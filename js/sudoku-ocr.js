@@ -765,7 +765,7 @@ function makeRow (data, m20, m11, m02, m30, m21, m12, m03, result, d, train) {
 	return row;
 }
 
-Sudoku.prototype.fromImage = function (canvas0, canvas1, canvas2, canvas3, table, training) {
+Sudoku.prototype.fromImage = function (canvas0, canvas1, canvas2, canvas3, table, training, timer) {
 	var w, h, imageData,
 		gray, mono, component,
 		horizontal, vertical, digit,
@@ -775,42 +775,62 @@ Sudoku.prototype.fromImage = function (canvas0, canvas1, canvas2, canvas3, table
 		table.appendChild(makeRow(data, m20, m11, m02, m30, m21, m12, m03, result, d, training));
 	}
 
+	timer = timer || function () {};
+
+	timer('all');
 	this.empty();
 
 	w = canvas0.width;
 	h = canvas0.height;
 
+	timer('read-data');
 	imageData = canvas0.getContext('2d').getImageData(0, 0, w, h);
+	timer('read-data');
+	timer('gray');
 	gray = canvasToGray(imageData);
+	timer('gray');
+	timer('mono');
 	mono = grayToMonochrome(gray, Math.round(Math.min(w, h) / 40), 0.05);
+	timer('mono');
 	if (canvas1) {
 		drawMono(canvas1, mono);
 	}
 
+	timer('component');
 	component = largestComponent(blur(mono, 1, 0.3));
+	timer('component');
 	if (canvas2) {
 		drawMono(canvas2, component);
 	}
 
+	timer('interior');
 	component = filterInterior(mono, component);
+	timer('interior');
 	if (canvas3) {
 		drawMono(canvas3, component);
 	}
 
+	timer('hough');
 	vertical = hough(component, 0, Math.min(w, h) / 30);
 	horizontal = hough(component, 90, Math.min(w, h) / 30);
+	timer('hough');
 	if (canvas1) {
 		showGrid(canvas0, horizontal, vertical);
 	}
 
+	timer('ocr');
 	for (y = 0; y < 9; y++) {
 		for (x = 0; x < 9; x++) {
 			digit = getCell(mono, x, y, horizontal, vertical, 32);
 			this.grid[y][x] = ocr(digit, table && log);
 		}
 	}
+	timer('ocr');
 
+	timer('fix');
 	this.fixOCR();
+	timer('fix');
+	timer('all');
 };
 
 function countConflicts (grid, x0, y0) {

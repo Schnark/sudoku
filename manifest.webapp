@@ -1,5 +1,5 @@
 {
-	"version": "2.1",
+	"version": "2.2",
 	"name": "Sudoku Solver",
 	"description": "App to solve Sudokus",
 	"launch_path": "/index.html",
