@@ -1,8 +1,8 @@
 {
-	"version": "2.3",
+	"version": "2.4",
 	"name": "Sudoku Solver",
 	"description": "App to solve Sudokus",
-	"size": 129743,
+	"size": 129773,
 	"package_path": "http://localhost:8080/sudoku.zip",
 	"icons": {
 		"128": "/icons/icon-128.png",

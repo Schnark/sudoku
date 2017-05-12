@@ -47,7 +47,7 @@ SudokuApp.prototype.run = function () {
 
 SudokuApp.prototype.getTrainingData = function () {
 	try {
-		this.trainigData = JSON.parse(localStorage.getItem('training')) || Sudoku.emptyTrainingData();
+		this.trainigData = JSON.parse(localStorage.getItem('sudoku-training')) || Sudoku.emptyTrainingData();
 	} catch (e) {
 		this.trainigData = Sudoku.emptyTrainingData();
 	}
@@ -55,14 +55,14 @@ SudokuApp.prototype.getTrainingData = function () {
 
 SudokuApp.prototype.saveTrainingData = function () {
 	try {
-		localStorage.setItem('training', JSON.stringify(this.trainigData));
+		localStorage.setItem('sudoku-training', JSON.stringify(this.trainigData));
 	} catch (e) {
 	}
 };
 
 SudokuApp.prototype.clearTrainingData = function () {
 	try {
-		localStorage.removeItem('training');
+		localStorage.removeItem('sudoku-training');
 	} catch (e) {
 	}
 };
