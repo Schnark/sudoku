@@ -4,13 +4,11 @@
 
 var app, debug;
 
-switch (location.search) {
-case '?debug=true':
+debug = /.*[&?]debug=([^&]*)/.exec(location.search || '');
+debug = debug ? decodeURIComponent(debug[1]) : '';
+if (debug === 'true') {
 	debug = true;
-	break;
-case '?debug=false':
-/*falls through*/
-default:
+} else {
 	debug = false;
 }
 

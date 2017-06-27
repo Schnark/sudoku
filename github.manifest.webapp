@@ -1,8 +1,8 @@
 {
-	"version": "2.4",
+	"version": "2.5",
 	"name": "Sudoku Solver",
 	"description": "App to solve Sudokus",
-	"size": 129773,
+	"size": 129836,
 	"package_path": "https://schnark.github.io/sudoku/sudoku.zip",
 	"icons": {
 		"128": "/icons/icon-128.png",
