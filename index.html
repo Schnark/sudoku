@@ -1,7 +1,7 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html><head><title data-l10n-id="title">Sudoku Solver</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, user-scalable=no">
+<meta name="viewport" content="width=device-width">
 <link rel="apple-touch-icon" sizes="180x180" href="more-icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="more-icons/favicon-32x32.png" sizes="32x32">
 <link rel="icon" type="image/png" href="more-icons/favicon-16x16.png" sizes="16x16">
@@ -18,16 +18,17 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 	navigator.serviceWorker.register('sw.js');
 }
 </script>
-<script src="js/l10n.js"></script>
-<script src="js/perspective-transform.min.js"></script>
-<script src="js/sudoku.js"></script>
-<script src="js/sudoku-solve.js"></script>
-<script src="js/sudoku-ocr.js"></script>
-<script src="js/sudoku-app.js"></script>
+<script src="js/l10n.js" defer></script>
+<script src="js/perspective-transform.min.js" defer></script>
+<script src="js/sudoku.js" defer></script>
+<script src="js/sudoku-solve.js" defer></script>
+<script src="js/sudoku-ocr.js" defer></script>
+<script src="js/sudoku-app.js" defer></script>
+<script src="js/app.js" defer></script>
 </head><body>
 
 <section id="page-loading">
-<img src="icons/icon-512.png">
+<img src="icons/icon-512.png" alt="">
 </section>
 
 <section id="page-start" hidden>
@@ -39,7 +40,7 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 <button id="button-test-image" data-l10n-id="button-test-image">(button-test-image)</button>
 <button id="button-training" data-l10n-id="button-training">(button-training)</button>
 <p data-l10n-id="thanks">(thanks)</p>
-<p data-l10n-id="thanks-list">(thanks-list)</p>
+<div data-l10n-id="thanks-list">(thanks-list)</div>
 <p data-l10n-id="free-software">(free-software)</p>
 <button id="button-debug-on" data-l10n-id="button-debug-on">(button-debug-on)</button>
 <button id="button-debug-off" data-l10n-id="button-debug-off">(button-debug-off)</button>
@@ -123,5 +124,4 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 <button id="button-solve" data-l10n-id="button-solve">(button-solve)</button>
 </section>
 
-<script src="js/app.js"></script>
 </body></html>
